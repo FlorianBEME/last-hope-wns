@@ -29,6 +29,19 @@ declare global {
 }
 
 export interface NexusGenInputs {
+  CreateProjectInput: { // input type
+    advancement?: number | null; // Int
+    description?: string | null; // String
+    due_at?: NexusGenScalars['Date'] | null; // Date
+    end_at?: NexusGenScalars['Date'] | null; // Date
+    id?: string | null; // ID
+    product_owner_id?: string | null; // ID
+    start_at?: NexusGenScalars['Date'] | null; // Date
+    title?: string | null; // String
+  }
+  ProjectWhereUniqueInput: { // input type
+    id: string; // ID!
+  }
 }
 
 export interface NexusGenEnums {
@@ -44,6 +57,7 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
+  Mutation: {};
   Project: { // root type
     advancement: number; // Int!
     description: string; // String!
@@ -68,6 +82,10 @@ export type NexusGenRootTypes = NexusGenObjects
 export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
+  Mutation: { // field return type
+    createProject: NexusGenRootTypes['Project'] | null; // Project
+    removeProject: NexusGenRootTypes['Project'] | null; // Project
+  }
   Project: { // field return type
     advancement: number; // Int!
     description: string; // String!
@@ -79,11 +97,16 @@ export interface NexusGenFieldTypes {
     title: string; // String!
   }
   Query: { // field return type
-    projects: NexusGenRootTypes['Project'] | null; // Project
+    project: NexusGenRootTypes['Project'] | null; // Project
+    projects: NexusGenRootTypes['Project'][] | null; // [Project!]
   }
 }
 
 export interface NexusGenFieldTypeNames {
+  Mutation: { // field return type name
+    createProject: 'Project'
+    removeProject: 'Project'
+  }
   Project: { // field return type name
     advancement: 'Int'
     description: 'String'
@@ -95,11 +118,25 @@ export interface NexusGenFieldTypeNames {
     title: 'String'
   }
   Query: { // field return type name
+    project: 'Project'
     projects: 'Project'
   }
 }
 
 export interface NexusGenArgTypes {
+  Mutation: {
+    createProject: { // args
+      input: NexusGenInputs['CreateProjectInput']; // CreateProjectInput!
+    }
+    removeProject: { // args
+      where: NexusGenInputs['ProjectWhereUniqueInput']; // ProjectWhereUniqueInput!
+    }
+  }
+  Query: {
+    project: { // args
+      where: NexusGenInputs['ProjectWhereUniqueInput']; // ProjectWhereUniqueInput!
+    }
+  }
 }
 
 export interface NexusGenAbstractTypeMembers {
@@ -110,7 +147,7 @@ export interface NexusGenTypeInterfaces {
 
 export type NexusGenObjectNames = keyof NexusGenObjects;
 
-export type NexusGenInputNames = never;
+export type NexusGenInputNames = keyof NexusGenInputs;
 
 export type NexusGenEnumNames = never;
 

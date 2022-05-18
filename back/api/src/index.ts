@@ -1,10 +1,12 @@
 import { ApolloServer } from 'apollo-server'
 import { ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core'
+import { createContext } from './context'
 
 import { schema } from './schema'
 
 const server = new ApolloServer({
   schema,
+  context: createContext,
   plugins: [
     ApolloServerPluginLandingPageGraphQLPlayground()
   ]

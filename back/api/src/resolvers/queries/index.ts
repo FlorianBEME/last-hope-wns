@@ -1,18 +1,26 @@
 import { list, nonNull, nullable, queryField } from "nexus"
+import { ProjectWhereUniqueInput } from "../inputs"
 import { Project } from "../models/Project"
 
 export const projects = queryField("projects", 
 {
     type: nullable(list(nonNull(Project))),
-    resolve: async (root, args, ctx) => {
-        return null
+    resolve: async (_root, args, ctx) => {
+        return ctx.prisma.project.findMany({})
     }
 })
 
-export const project = queryField("projects", 
+export const project = queryField("project", 
 {
     type: nullable(Project),
-    resolve: async (root, args, ctx) => {
-        return null
+    args: {
+        where: nonNull(ProjectWhereUniqueInput)
+    },
+    resolve: async (_root, args, ctx) => {
+        return ctx.prisma.project.findUnique({
+            where: {
+                id: args.where.id
+            }
+        })
     }
 })

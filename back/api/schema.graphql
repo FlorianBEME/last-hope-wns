@@ -2,10 +2,26 @@
 ### Do not make changes to this file directly
 
 
+input CreateProjectInput {
+  advancement: Int
+  description: String
+  due_at: Date
+  end_at: Date
+  id: ID
+  product_owner_id: ID
+  start_at: Date
+  title: String
+}
+
 """
 A date string, such as 2007-12-03, compliant with the `full-date` format outlined in section 5.6 of the RFC 3339 profile of the ISO 8601 standard for representation of dates and times using the Gregorian calendar.
 """
 scalar Date
+
+type Mutation {
+  createProject(input: CreateProjectInput!): Project
+  removeProject(where: ProjectWhereUniqueInput!): Project
+}
 
 type Project {
   advancement: Int!
@@ -20,6 +36,11 @@ type Project {
   title: String!
 }
 
+input ProjectWhereUniqueInput {
+  id: ID!
+}
+
 type Query {
-  projects: Project
+  project(where: ProjectWhereUniqueInput!): Project
+  projects: [Project!]
 }
