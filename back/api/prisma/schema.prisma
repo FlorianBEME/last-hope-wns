@@ -17,5 +17,6 @@ model Project {
   start_at DateTime
   due_at DateTime
   end_at DateTime
-  project_owner_id String
+  product_owner_id String
+  advancement Int
 }
