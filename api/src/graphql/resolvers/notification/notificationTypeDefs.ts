@@ -9,7 +9,7 @@ export default gql`
     content: String
     type: String
     user: User
-    created_at:DateTime
+    created_at: DateTime
   }
 
   input UpdatedNotificationInput {
@@ -17,7 +17,7 @@ export default gql`
     title: String
     content: String
     type: String
-   }
+  }
 
   type Query {
     GetNotificationByUserId(userId: String!): [Notification]

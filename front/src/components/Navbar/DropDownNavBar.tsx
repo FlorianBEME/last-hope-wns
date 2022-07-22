@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Fragment } from "react";
-import { useQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Menu, Transition } from "@headlessui/react";
@@ -30,9 +30,18 @@ export default function DropDownNavBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { loading, error, data } = useQuery(GetNotificationByUserId, {
-    variables: { userId: userInStore.id },
-  });
+  const [getNotification, { loading, error, data }] = useLazyQuery(
+    GetNotificationByUserId,
+    {
+      variables: { userId: userInStore.id },
+    }
+  );
+
+  useEffect(() => {
+    if (userInStore.id) {
+      getNotification();
+    }
+  }, [userInStore]);
 
   const [notificationsUnread, setNotificationsUnread] = useState<Number>(0);
 
@@ -141,17 +150,20 @@ export default function DropDownNavBar() {
               {notificationsList.length > 0 ? (
                 <>
                   {notificationsList
-                  .filter((notification: Notification)=> notification.is_read === false)
-                  .reverse()
-                  .map((notification: Notification) => {
-                    return (
-                      <div key={notification.id}>
+                    .filter(
+                      (notification: Notification) =>
+                        notification.is_read === false
+                    )
+                    .reverse()
+                    .map((notification: Notification) => {
+                      return (
+                        <div key={notification.id}>
                           <div className="py-1 border-b-2">
                             <NotificationItem notification={notification} />
                           </div>
-                      </div>
-                    );
-                  })}
+                        </div>
+                      );
+                    })}
                   {notificationsList.filter((el) => el.is_read === true)
                     .length === notificationsList.length && (
                     <div className="text-lh-dark flex items-center justify-between sm:justify-center gap-x-2 p-8 text-md">

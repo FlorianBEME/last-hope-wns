@@ -7,7 +7,7 @@ type TypeState = {
 
 type User = {
   roles: "ROLE_ADMIN" | "ROLE_DEVELOPER" | "ROLE_PROJECT_MANAGER" | "";
-  id: string;
+  id: string | null;
   firstname: string;
   mail: string;
   lastname: string;
@@ -17,7 +17,7 @@ const initialState: TypeState = {
   token: null,
   user: {
     roles: "",
-    id: "",
+    id: null,
     firstname: "",
     lastname: "",
     mail: "",

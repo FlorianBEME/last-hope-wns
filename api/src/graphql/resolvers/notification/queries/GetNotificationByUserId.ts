@@ -9,7 +9,7 @@ export default async (
     where: { user_id: userId },
     include: {
       user: true,
-    }
+    },
   });
 
   return result;

@@ -11,7 +11,7 @@ interface IMyProps {
 
 export default function NotificationItem({ notification }: IMyProps) {
   const [UpdateNotification] = useMutation(UPDATE_NOTIFICATION);
-  const formatDate = "YYYY/MM/DD, hh:mm a'";
+  const formatDate = "YYYY/MM/DD, hh:mm a";
   return (
     <div className="w-full flex flex-col items-center space-y-4 sm:items-end">
       <div className="w-full bg-white pointer-events-auto overflow-hidden">
@@ -28,7 +28,7 @@ export default function NotificationItem({ notification }: IMyProps) {
                 {notification.content}
               </p>
               <div className="mt-3 flex justify-end">
-                <span className="text-sm text-lh-gray">
+                <span className="text-sm text-lh-secondary">
                   <Moment format={formatDate}>
                     {new Date(notification.created_at)}
                   </Moment>
